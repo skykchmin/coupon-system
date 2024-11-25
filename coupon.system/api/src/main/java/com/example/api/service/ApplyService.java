@@ -1,6 +1,7 @@
 package com.example.api.service;
 
 import com.example.api.domain.Coupon;
+import com.example.api.repository.CouponCountRepository;
 import com.example.api.repository.CouponRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +9,18 @@ import org.springframework.stereotype.Service;
 public class ApplyService {
     private final CouponRepository couponRepository;
 
+    private final CouponCountRepository couponCountRepository;
 
-    public ApplyService(CouponRepository couponRepository) {
+
+    public ApplyService(CouponRepository couponRepository, CouponCountRepository couponCountRepository) {
         this.couponRepository = couponRepository;
+        this.couponCountRepository = couponCountRepository;
     }
 
     public void apply(Long userId){
-        long count = couponRepository.count();
+        Long count = couponCountRepository.increment(); // 쿠폰 발급 전 쿠폰 발급 갯수를 증가 시킨다
 
+        // 쿠폰 카운트가 100개가 넘는다면
         if(count > 100){
             return;
         }
