@@ -25,6 +25,8 @@ public class ApplyService {
 
         // 쿠폰 카운트가 100개가 넘는다면
         if(count > 100){
+            System.out.println("쿠폰 갯수 발급 초과!");
+            System.out.println(count);
             return;
         }
 
